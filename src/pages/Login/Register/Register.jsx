@@ -1,11 +1,12 @@
-import React, { useContext } from 'react';
+import React, { useContext, useState } from 'react';
 import { Button, Container, Form } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import { AuthContext } from '../../../providers/AuthProvider';
 
 const Register = () => {
 
-    const {createUser} = useContext(AuthContext);
+    const { createUser } = useContext(AuthContext);
+    const [accepted, setAccepted] = useState(false);
 
     const handleRegister = event => {
         event.preventDefault();
@@ -18,13 +19,17 @@ const Register = () => {
         console.log(name, photo, email, password);
 
         createUser(email, password)
-        .then(result => {
-            const createdUser = result.user;
-            console.log(createdUser);
-        })
-        .catch(error => {
-            console.log(error.message);
-        })
+            .then(result => {
+                const createdUser = result.user;
+                console.log(createdUser);
+            })
+            .catch(error => {
+                console.log(error.message);
+            })
+    }
+
+    const handleAccepted = event => {
+        setAccepted(event.target.checked);
     }
 
     return (
@@ -49,13 +54,16 @@ const Register = () => {
                     <Form.Control type="password" name='password' placeholder="Password" required />
                 </Form.Group>
                 <Form.Group className="mb-3" controlId="formBasicCheckbox">
-                    <Form.Check type="checkbox" label="Accept Terms and Condition" />
+                    <Form.Check
+                        onClick={handleAccepted}
+                        type="checkbox"
+                        label={<>Accept <Link to='/terms'>Terms and Condition</Link></>} />
                 </Form.Group>
-                <Button className='w-100' variant="dark" type="submit">
+                <Button className='w-100' variant="dark" type="submit" disabled={!accepted}>
                     Register
                 </Button>
                 <Form.Text className="text-dark ms-5">
-                    Already Have An Account? <Link to='/login'>Login</Link> 
+                    Already Have An Account? <Link to='/login'>Login</Link>
                 </Form.Text>
                 <Form.Text className="text-success">
 
