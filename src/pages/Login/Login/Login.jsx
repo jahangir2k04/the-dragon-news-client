@@ -8,7 +8,7 @@ const Login = () => {
     const {signIn} = useContext(AuthContext);
     const navigate = useNavigate();
     const location = useLocation();
-    console.log(location);
+    // console.log(location);
 
     const from = location.state?.from?.pathname || '/category/0';
 
@@ -21,7 +21,7 @@ const Login = () => {
         signIn(email, password)
         .then(result => {
             const loggedUser = result.user;
-            console.log(loggedUser);
+            // console.log(loggedUser);
             navigate(from, { replace: true });
         })
         .catch(error => {
