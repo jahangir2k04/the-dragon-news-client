@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
+import AllNews from '../../Home/AllNews/AllNews';
 
-const LeftNac = () => {
+const LeftNav = () => {
     const [categories, setCategories] = useState([]);
 
     useEffect( () => {
@@ -23,8 +24,9 @@ const LeftNac = () => {
                     </p>)
                 }
             </div>
+            <AllNews></AllNews>
         </div>
     );
 };
 
-export default LeftNac;
+export default LeftNav;
